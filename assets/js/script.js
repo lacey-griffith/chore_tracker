@@ -45,6 +45,7 @@ var saveTasks = function () {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
+//click listener for edit the task text
 $(".list-group").on("click", "p", function () {
   var text = $(this)
     .text()
@@ -59,19 +60,17 @@ $(".list-group").on("click", "p", function () {
   textInput.trigger("focus");
 });
 
+//go back to original state with new task text
 $(".list-group").on("blur", "textarea", function() {
-  //get the text areas current value/text
   var text = $(this)
   .val()
   .trim();
 
-  //get parent ul's id attr
   var status = $(this)
   .closest(".list-group")
   .attr("id")
   .replace("list-", "");
 
-  //get task position in the list
   var index = $(this)
   .closest(".list-group-item")
   .index();
@@ -86,6 +85,46 @@ $(".list-group").on("blur", "textarea", function() {
   $(this).replaceWith(taskP);
 });
 
+//click listener for editing date of task
+$(".list-group").on("click", "span", function () {
+  var date = $(this)
+  .text()
+  .trim();
+
+  var dateInput = $("<input>")
+  .attr("type", "text")
+  .addClass("form-control")
+  .val(date);
+
+  $(this).replaceWith(dateInput);
+
+  dateInput.trigger("focus");
+});
+
+//go back to original state with new date
+$(".list-group").on("blur", "input[type='text']", function () {
+  var date = $(this)
+  .val()
+  .trim();
+
+  var status = $(this)
+  .closest(".list-group")
+  .attr("id")
+  .replace("list-", "")
+
+  var index = $(this)
+  .closest(".list-group-item")
+  .index();
+
+  tasks[status][index].date = date;
+  saveTasks();
+
+  var taskSpan = $("<span>")
+  .addClass("badge badge-primary badge-pill")
+  .text(date)
+
+  $(this).replaceWith(taskSpan);
+});
 
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function () {
