@@ -33,7 +33,7 @@ var loadTasks = function () {
 
   // loop over object properties
   $.each(tasks, function (list, arr) {
-    console.log(list, arr);
+    // console.log(list, arr);
     // then loop over sub-array
     arr.forEach(function (task) {
       createTask(task.text, task.date, list);
@@ -50,7 +50,7 @@ $(".list-group").on("click", "p", function () {
   var text = $(this)
     .text()
     .trim();
-  console.log(text);
+
 
   var textInput = $("<textarea>")
     .addClass("form-control")
@@ -61,26 +61,26 @@ $(".list-group").on("click", "p", function () {
 });
 
 //go back to original state with new task text
-$(".list-group").on("blur", "textarea", function() {
+$(".list-group").on("blur", "textarea", function () {
   var text = $(this)
-  .val()
-  .trim();
+    .val()
+    .trim();
 
   var status = $(this)
-  .closest(".list-group")
-  .attr("id")
-  .replace("list-", "");
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-", "");
 
   var index = $(this)
-  .closest(".list-group-item")
-  .index();
+    .closest(".list-group-item")
+    .index();
 
   tasks[status][index].text = text;
   saveTasks();
 
   var taskP = $("<p>")
-  .addClass("m-1")
-  .text(text);
+    .addClass("m-1")
+    .text(text);
 
   $(this).replaceWith(taskP);
 });
@@ -88,13 +88,13 @@ $(".list-group").on("blur", "textarea", function() {
 //click listener for editing date of task
 $(".list-group").on("click", "span", function () {
   var date = $(this)
-  .text()
-  .trim();
+    .text()
+    .trim();
 
   var dateInput = $("<input>")
-  .attr("type", "text")
-  .addClass("form-control")
-  .val(date);
+    .attr("type", "text")
+    .addClass("form-control")
+    .val(date);
 
   $(this).replaceWith(dateInput);
 
@@ -104,26 +104,68 @@ $(".list-group").on("click", "span", function () {
 //go back to original state with new date
 $(".list-group").on("blur", "input[type='text']", function () {
   var date = $(this)
-  .val()
-  .trim();
+    .val()
+    .trim();
 
   var status = $(this)
-  .closest(".list-group")
-  .attr("id")
-  .replace("list-", "")
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-", "")
 
   var index = $(this)
-  .closest(".list-group-item")
-  .index();
+    .closest(".list-group-item")
+    .index();
 
   tasks[status][index].date = date;
   saveTasks();
 
   var taskSpan = $("<span>")
-  .addClass("badge badge-primary badge-pill")
-  .text(date)
+    .addClass("badge badge-primary badge-pill")
+    .text(date)
 
   $(this).replaceWith(taskSpan);
+});
+
+//make lists sortable
+$(".card .list-group").sortable({
+  connectWith: $(".card .list-group"),
+  scroll: false,
+  tolerance: "pointer",
+  helper: "clone",
+  activate: function (event) {},
+  deactivate: function (event) {},
+  over: function (event) {},
+  out: function (event) {},
+  update: function (event) {
+    var tempArr = [];
+
+    $(this).children().each(function () {
+      var text = $(this)
+        .find("p")
+        .text()
+        .trim();
+
+      var date = $(this)
+        .find("span")
+        .text()
+        .trim();
+
+      tempArr.push({
+        text: text,
+        date: date
+      });
+
+      console.log(text, date);
+    });
+    console.log(tempArr);
+
+    var arrName = $(this)
+      .attr("id")
+      .replace("list-", "");
+
+    tasks[arrName] = tempArr;
+    saveTasks();
+  }
 });
 
 // modal was triggered
