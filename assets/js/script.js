@@ -152,6 +152,7 @@ var auditTask = function(taskEl) {
   else if (Math.abs(moment().diff(time, "days")) <= 2) {
     $(taskEl).addClass("list-group-item-warning");
   }
+  console.log(taskEl);
 };
 
 //make lists sortable
@@ -201,13 +202,10 @@ $("#trash").droppable({
   tolerance: "touch",
   drop: function(event, ui) {
     ui.draggable.remove();
-    console.log("drop");
   },
   over: function(event, ui) {
-    console.log("over");
   },
   out: function(event, ui) {
-    console.log("out");
   }
 });
 
@@ -261,3 +259,8 @@ $("#remove-tasks").on("click", function () {
 // load tasks for the first time
 loadTasks();
 
+setInterval(function() {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, (1000 * 60) * 30);
