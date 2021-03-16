@@ -159,15 +159,13 @@ $(".card .list-group").sortable({
   scroll: false,
   tolerance: "pointer",
   helper: "clone",
-  activate: function (event) {
+  activate: function (event, ui) {
     $(this).addClass("dropover");
-
-    $("#trash").addClass("bottom-trash-drag");
+    $(".bottom-trash").addClass("bottom-trash-drag");
   },
-  deactivate: function (event) {
+  deactivate: function (event, ui) {
     $(this).removeClass("dropover");
-
-    $("#trash").removeClass("bottom-trash-active bottom-trash-drag");
+    $(".bottom-trash").removeClass("bottom-trash-drag");
   },
   over: function (event) {
     $(event.target).addClass("dropover-active")
@@ -175,7 +173,7 @@ $(".card .list-group").sortable({
   out: function (event) {
     $(event.target).removeClass("dropover-active")
   },
-  update: function (event) {
+  update: function () {
     var tempArr = [];
     $(this).children().each(function () {
       var text = $(this)
@@ -209,13 +207,13 @@ $("#trash").droppable({
   tolerance: "touch",
   drop: function(event, ui) {
     ui.draggable.remove();
-    $(this).removeClass("bottom-trash-active");
+    $(".bottom-trash").removeClass("bottom-trash-active");
   },
   over: function(event, ui) {
-    $(this).addClass("bottom-trash-active");
+    $(".bottom-trash").addClass("bottom-trash-active");
   },
   out: function(event, ui) {
-    $(this).removeClass("bottom-trash-active");
+    $(".bottom-trash").removeClass("bottom-trash-active");
   }
 });
 
