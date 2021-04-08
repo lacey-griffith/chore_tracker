@@ -75,14 +75,19 @@ h6 {
 }
 
 /* add custom classes */
-.item-warning {
+.task-item-regular {
   background-color: white;
   color: #014656;
   font-weight: bold;
 }
+.item-warning {
+  background-color: white;
+  color: #f6a801;
+  font-weight: bold;
+}
 .item-danger {
   background-color: white;
-  color: #014656;
+  color: #f63a01;
   font-weight: bold;
 }
 .badge-primary-custom {
