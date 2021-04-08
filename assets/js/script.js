@@ -4,7 +4,7 @@ var createTask = function (taskText, taskDate, taskList) {
   // create elements that make up a task item
   var taskLi = $("<li>").addClass("list-group-item");
   var taskSpan = $("<span>")
-    .addClass("badge badge-primary badge-pill")
+    .addClass("badge badge-primary-custom badge-pill")
     .text(taskDate);
   var taskP = $("<p>")
     .addClass("m-1")
@@ -146,10 +146,10 @@ var auditTask = function(taskEl) {
   $(taskEl).removeClass("list-group-item-warning list-group-item-danger")
 
   if (moment().isAfter(time)) {
-    $(taskEl).addClass("list-group-item-danger");
+    $(taskEl).addClass("list-group-item-danger item-danger");
   }
-  else if (Math.abs(moment().diff(time, "days")) <= 2) {
-    $(taskEl).addClass("list-group-item-warning");
+  else if (Math.abs(moment().diff(time, "days")) <= 1) {
+    $(taskEl).addClass("list-group-item-warning item-warning");
   }
 };
 
