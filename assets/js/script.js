@@ -100,7 +100,7 @@ $(".list-group").on("click", "span", function () {
 
   dateInput.datepicker({
     minDate: 1,
-    onClose: function() {
+    onClose: function () {
       $(this).trigger("change");
     }
   });
@@ -127,7 +127,7 @@ $(".list-group").on("change", "input[type='text']", function () {
   saveTasks();
 
   var taskSpan = $("<span>")
-    .addClass("badge badge-primary badge-pill")
+    .addClass("badge badge-primary-custom badge-pill")
     .text(date)
 
   $(this).replaceWith(taskSpan);
@@ -135,20 +135,19 @@ $(".list-group").on("change", "input[type='text']", function () {
   auditTask($(taskSpan).closest(".list-group-item"));
 });
 
-var auditTask = function(taskEl) {
+var auditTask = function (taskEl) {
   var date = $(taskEl)
-  .find("span")
-  .text()
-  .trim();
+    .find("span")
+    .text()
+    .trim();
 
-  var time = moment(date,"L").set("hour", 17);
-  
+  var time = moment(date, "L").set("hour", 17);
+
   $(taskEl).removeClass("list-group-item-warning list-group-item-danger")
 
   if (moment().isAfter(time)) {
     $(taskEl).addClass("list-group-item-danger item-danger");
-  }
-  else if (Math.abs(moment().diff(time, "days")) <= 1) {
+  } else if (Math.abs(moment().diff(time, "days")) <= 1) {
     $(taskEl).addClass("list-group-item-warning item-warning");
   }
 };
@@ -205,14 +204,14 @@ $(".card .list-group").sortable({
 $("#trash").droppable({
   accept: ".card .list-group-item",
   tolerance: "touch",
-  drop: function(event, ui) {
+  drop: function (event, ui) {
     ui.draggable.remove();
     $(".bottom-trash").removeClass("bottom-trash-active");
   },
-  over: function(event, ui) {
+  over: function (event, ui) {
     $(".bottom-trash").addClass("bottom-trash-active");
   },
-  out: function(event, ui) {
+  out: function (event, ui) {
     $(".bottom-trash").removeClass("bottom-trash-active");
   }
 });
@@ -267,8 +266,8 @@ $("#remove-tasks").on("click", function () {
 // load tasks for the first time
 loadTasks();
 
-setInterval(function() {
-  $(".card .list-group-item").each(function(index, el) {
+setInterval(function () {
+  $(".card .list-group-item").each(function (index, el) {
     auditTask(el);
   });
 }, (1000 * 60) * 30);
