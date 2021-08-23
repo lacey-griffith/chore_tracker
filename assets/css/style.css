@@ -5,7 +5,7 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 .customize-header {
-  background-color:#014656;
+  background-color:#060563;
 }
 h1,
 h2,
@@ -40,14 +40,6 @@ h6 {
   background-color: rgba(234,0,39,1);
   color:#f1f1f1;
 }
-/* original styling with green buttons
-.btn-add, .btn-save {
-  background-color: #81fb72;
-  background-image: linear-gradient(45deg, #bbff8b 0%, #0bc13c 52%, #b2fc82 90%);
-  transition: all .5s ease-out;
-  background-size: 1px 100px;
-  background-position: 0 -10px;
-}*/
 .btn-add, .btn-save {
   background-color: #040404;
   background-image: linear-gradient(45deg, #474848 0%, #696b69 52%, #f1f3f0 90%);
@@ -55,14 +47,6 @@ h6 {
   background-size: 1px 100px;
   background-position: 0 -10px;
 }
-/* original styling with red buttons
-.btn-close, .btn-delete {
-  background-color: #ff0000;
-  background-image: linear-gradient(180deg, #f14141 0%, #bd0909 52%, #ff4e4e 90%);
-  transition: all .5s ease-out;
-  background-size: 1px 100px;
-  background-position: 0 -10px;
-}*/
 .btn-close, .btn-delete {
   background-color: #040404;
   background-image: linear-gradient(45deg, #474848 0%, #696b69 52%, #f1f3f0 90%);
@@ -91,6 +75,7 @@ h6 {
   font-weight: bold;
 }
 .badge-primary-custom {
-  background-color: #00a2ad;
-  color: white;
+  background-color: lightgray;
+  border: 1px solid black;
+  color: black;
 }
