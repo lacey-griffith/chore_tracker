@@ -1,6 +1,8 @@
 var tasks = {};
 
+
 var createTask = function (taskText, taskDate, taskList) {
+  console.log(taskList)
   // create elements that make up a task item
   var taskLi = $("<li>").addClass("list-group-item task-item-regular");
   var taskSpan = $("<span>")
@@ -271,3 +273,20 @@ setInterval(function () {
     auditTask(el);
   });
 }, (1000 * 60) * 30);
+
+
+// add recurring tasks
+let date = new Date()
+console.log(date)
+var weeklyTasks = function (){
+  //taskText, taskDate, taskList
+  let recurringTasks = [{
+    taskText: 'Take Out Trash',
+    taskDate: date.setDate(date.getDate() + 5),
+    taskList: 'toDo'
+  }]
+  
+  recurringTasks.forEach(task => createTask(task.taskText,task.taskDate, task.taskList))
+  }
+
+weeklyTasks();
