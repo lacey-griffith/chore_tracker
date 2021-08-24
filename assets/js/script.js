@@ -2,7 +2,7 @@ var tasks = {};
 
 
 var createTask = function (taskText, taskDate, taskList) {
-  console.log(taskList)
+
   // create elements that make up a task item
   var taskLi = $("<li>").addClass("list-group-item task-item-regular");
   var taskSpan = $("<span>")
@@ -274,19 +274,94 @@ setInterval(function () {
   });
 }, (1000 * 60) * 30);
 
-
+let earned = [];
 // add recurring tasks
-let date = new Date()
-console.log(date)
 var weeklyTasks = function (){
   //taskText, taskDate, taskList
-  let recurringTasks = [{
-    taskText: 'Take Out Trash',
-    taskDate: date.setDate(date.getDate() + 5),
-    taskList: 'toDo'
-  }]
+  //monday = toDo
+  //tuesday = inProgress
+  //friday/saturday = inReview
+  let recurringTasks = [
+    //MONDAY
+    {
+      taskText: 'Homework [MONDAY]',
+      taskDate: 0,
+      taskList: 'toDo'
+    },{
+      taskText: 'Take out trash & replace bag [downstairs]',
+      taskDate: 0.50,
+      taskList: 'toDo'
+    }, {
+      taskText: 'Take out recycling',
+      taskDate: 0.50,
+      taskList: 'toDo'
+    }, {
+      taskText: 'Take trashcan (& recycle bin every other week) to curb',
+      taskDate: 1.00,
+      taskList: 'toDo'
+    },
+    //TUESDAY
+    {
+      taskText: 'Homework [TUESDAY]',
+      taskDate: 0,
+      taskList: 'inProgress'
+    },{
+      taskText: 'Put away clean dishes',
+      taskDate: 1.00,
+      taskList: 'inProgress'
+    }, {
+      taskText: 'Wash/load dirty dishes',
+      taskDate: 1.50,
+      taskList: 'inProgress'
+    },    {
+      taskText: 'Empty bathroom trash (take to outside trashcan)',
+      taskDate: 0.75,
+      taskList: 'inProgress'
+    },
+    //FRIDAY & SATURDAY
+    {
+      taskText: 'Homework [FRIDAY]',
+      taskDate: 0,
+      taskList: 'inReview'
+    },{
+      taskText: 'Complete laundry process',
+      taskDate: 1.50,
+      taskList: 'inReview'
+    }, {
+      taskText: 'Clean toilet (bowl, seat & lid)',
+      taskDate: 0.75,
+      taskList: 'inReview'
+    }, {
+      taskText: 'Vacuum bedroom',
+      taskDate: 1.00,
+      taskList: 'inReview'
+    }, {
+      taskText: 'Take out trash & replace bag [downstairs]',
+      taskDate: 0.50,
+      taskList: 'inReview'
+    }, {
+      taskText: 'Put away clean dishes $1.00',
+      taskDate: 1.00,
+      taskList: 'inReview'
+    }, {
+      taskText: 'Wash/load dirty dishes',
+      taskDate: 1.50,
+      taskList: 'inReview'
+    }
+  ]
   
-  recurringTasks.forEach(task => createTask(task.taskText,task.taskDate, task.taskList))
+  recurringTasks.forEach(task => {
+    createTask(task.taskText, task.taskDate, task.taskList)
+    let price = task.taskDate
+    earned.push(price)
+  })
   }
 
+let total;
+function calcEarned(earned){
+  return total = (earned.length && parseFloat(earned[0]) + calcEarned(earned.slice(1))) || 0;
+}
+
 weeklyTasks();
+calcEarned(earned).toFixed(2);
+console.log('$'+calcEarned(earned).toFixed(2))
